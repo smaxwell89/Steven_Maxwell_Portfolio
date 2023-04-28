@@ -14,8 +14,6 @@ Data Science Portfolio
 
 ![](https://github.com/smaxwell89/Steven_Maxwell_Portfolio/blob/main/Full%20Moon%20Screenshot.png)
 
-
-
 ## Sunspots: A Time Series Analysis
 
 > We investigated the monthly sunspot data set that can be found at the Machine Learning Mastery website (https://machinelearningmastery.com/time-series-datasets-for-machine-learning/). This data set contains 2,820 observations of sunspots that were taken over the course of 230 years, from 1749 to 1983. The total number of sunspots fluctuates from year to year with an average cycle of 11 years. We were interested in predicting the number of sunspots in the next 11 year cycle. Using time series analysis techniques, we fit a SARIMA model to the data and produced forecasts of the next 11-year cycle for the data up to 1993.
