@@ -25,6 +25,6 @@
 > Using data from the American Community Survey conducted by the US Census Bureau, an analysis of Maryland residents’ income was conducted to identify variables which significantly impact an individual’s yearly earnings. This analysis seeks to answer the following two questions: 1.) In Maryland in 2019, what was the effect of being employed in a given sector or industry of the economy on the wages earned over the last year? 2.) Of the people in Maryland who made more than $10,000 USD in the last 12 months, what is the effect their industry has on their income? Additionally, this analysis seeks to create a model to predict the income of a person in Maryland based on their educational attainment and age.
 
 
-## Kaggle’s Porto Seguro Safe Driver Prediction Challenge
+## [Kaggle’s Porto Seguro Safe Driver Prediction Challenge](https://github.com/smaxwell89/porto-seguro/blob/main/README.md)
 
 > Using the data provided by Brazil’s largest auto and homeowner insurance company Port Seguro, we used bagging and boosting methods to create models to predict the probability of a driver initiating an automotive insurance claim within the next year. Keeping the cost of insurance affordable relies on the accuracy of these predictions and over the past 20 years, Porto Seguro has relied on various machine learning techniques but are seeking more accurate models to ensure the affordability of their insurance.
