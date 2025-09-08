@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Steven Maxwell | Data Science Portfolio</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      background: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background: #222;
+      color: #fff;
+      padding: 2rem;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+    }
+    header p {
+      font-size: 1.2rem;
+      margin-top: 0.5rem;
+    }
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      margin: 2rem auto;
+    }
+    .skills {
+      background: #fff;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .skills h2 {
+      margin-top: 0;
+      color: #0066cc;
+    }
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+    .skill {
+      background: #0066cc;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+    .project {
+      background: #fff;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .project h2 a {
+      color: #0066cc;
+      text-decoration: none;
+    }
+    .project h2 a:hover {
+      text-decoration: underline;
+    }
+    .project img {
+      max-width: 100%;
+      border-radius: 8px;
+      margin: 1rem 0;
+    }
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      border-radius: 10px;
+      margin-top: 1rem;
+    }
+    footer {
+      background: #222;
+      color: #fff;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+    footer a {
+      color: #fff;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Steven Maxwell</h1>
+    <p>Data Scientist | Data Analyst | Machine Learning Enthusiast</p>
+  </header>
+
+  <div class="container">
+    <!-- Skills Section -->
+    <section class="skills">
+      <h2>Skills</h2>
+      <div class="skills-list">
+        <div class="skill">Python</div>
+        <div class="skill">SQL</div>
+        <div class="skill">Tableau</div>
+        <div class="skill">Pandas</div>
+        <div class="skill">NumPy</div>
+        <div class="skill">scikit-learn</div>
+        <div class="skill">XGBoost</div>
+        <div class="skill">Data Visualization</div>
+        <div class="skill">Machine Learning</div>
+        <div class="skill">Statistical Modeling</div>
+        <div class="skill">ETL</div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="project">
+      <h2><a href="https://github.com/smaxwell89/porto-seguro/blob/main/README.md" target="_blank">
+        Kaggle’s Porto Seguro Safe Driver Prediction Challenge
+      </a></h2>
+      <p>
+        Used bagging and boosting methods to predict the probability of a driver initiating an insurance claim within the next year, improving affordability for Brazil’s largest insurer.
+      </p>
+    </section>
+
+    <section class="project">
+      <h2>Sunspots: A Time Series Analysis</h2>
+      <p>
+        Analyzed 230 years of monthly sunspot data with SARIMA modeling to forecast the next 11-year solar cycle.
+      </p>
+    </section>
+
+    <section class="project">
+      <h2><a href="https://github.com/smaxwell89/Glass-Identification" target="_blank">Glass Identification</a></h2>
+      <p>
+        Applied MANOVA and discriminant analysis on refractive indices and oxide compositions of glass shards to classify glass types with up to 100% accuracy in some categories.
+      </p>
+      <img src="docs/assets/css/style/Glass%20Classification%20screenshot.png" alt="Glass Classification Screenshot">
+    </section>
+
+    <section class="project">
+      <h2><a href="https://github.com/smaxwell89/Full-Moon" target="_blank">
+        Finding Full Moon Effects on Mental Health Admissions
+      </a></h2>
+      <p>
+        Investigated ER admission data for seasonal and lunar cycle effects. Found significant seasonal variation but no correlation with full moon phases.
+      </p>
+      <img src="docs/assets/Full%20Moon%20Screenshot.png" alt="Full Moon Analysis Screenshot">
+    </section>
+
+    <section class="project">
+      <h2><a href="https://github.com/smaxwell89/maryland_resident_income" target="_blank">
+        Analysis of Maryland Resident’s Income
+      </a></h2>
+      <p>
+        Used U.S. Census ACS data to model effects of industry, education, and age on individual earnings in Maryland. Built predictive models for income estimation.
+      </p>
+    </section>
+
+    <section class="project">
+      <h2>Interactive Tableau Dashboard: NBA Player Offensive Stats</h2>
+      <p>
+        An interactive Tableau dashboard displaying top NBA players by rebounds, points, and assists, filterable by team.
+      </p>
+      <iframe src="https://public.tableau.com/views/positive_nba_stats_dashboard/OffensiveNBAStats?:showVizHome=no&:embed=true"></iframe>
+    </section>
+  </div>
+
+  <footer>
+    <p>© 2025 Steven Maxwell | <a href="https://github.com/smaxwell89" target="_blank">GitHub</a></p>
+  </footer>
+</body>
+</html>
