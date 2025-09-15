@@ -1,0 +1,127 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+knitr::opts_chunk$set(echo = T, warning = F, message = F, fig.align = "center")
+
+# Read libraries
+library(TSA)
+library(ggplot2)
+library(tidyverse)
+library(forecast)
+library(astsa)
+```
+
+```{r}
+# Read sunspot data from csv file
+sun <- read.csv("../data/sunspots.csv", header = TRUE)
+head(sun)
+
+# Create and plot original time series
+sun.ts <- ts(sun$Sunspots, start = c(1749,1), deltat = 1/12)
+plot(sun.ts, xlab = "Year", ylab = "Sunspots", main = "Sunspots per Month (1749-1983)")
+```
+
+```{r}
+# Difference time series. May be unnecessary as the data does not seem to include a trend 
+sun.diff <- c(NA, diff(sun.ts))
+sun.diff <- ts(sun.diff, start = c(1749,1), deltat = 1/12)
+plot(sun.diff, xlab = "Year", ylab = "First Order Differenced Series")
+
+# Plot ACF and PACF of first order differenced time series
+par(mfrow = c(1, 2)) # I think this is the only thing I've changed lol
+acf(sun.diff, lag.max = 150, na.action = na.pass, 
+    main = "ACF for differenced series")
+pacf(sun.diff, lag.max = 150, na.action = na.pass,
+     main = "PACF for differenced series")
+
+# Apply seasonal differencing. According to NASA, a solar cycle is approx 11 years. Apply a difference of 132 months lag to data. 
+sun.diff2 <- c(NA, diff(sun.diff, lag = 132))
+sun.diff2 <- ts(sun.diff2, start = c(1749,1), deltat = 1/12)
+plot(sun.diff2)
+
+# Plot ACF and PACF for differenced series
+par(mfrow = c(1, 2))
+acf(sun.diff2, lag.max = 150, na.action = na.pass, 
+    main = "ACF for Differenced Series")
+pacf(sun.diff2, lag.max = 150, na.action = na.pass, 
+     main = "PACF for Differenced Series")
+```
+
+```{r}
+
+# Create arima (MA) model based on ACF Cutoff and PACF tail off
+n <- length(sun.ts)
+fit1 <- arima(sun.ts, order = c(0,0,7), seasonal = list(order = c(1,1,1), period = 12))
+fit1
+
+# Explore residuals and fit of our model
+par(mfrow = c(1,2))
+res <- fit1$residuals
+acf(res, lag.max = 50)
+pacf(res, lag.max = 50)
+tsdiag(fit1)
+
+# Check normality assumption using QQ plot
+qqnorm(res)
+qqline(res)
+
+# Since the data does not appear to follow any sort of monthly trend, convert the data to yearly counts and analyze the time series
+
+sun.tidy <- sun %>% separate("Month", into = c("Year","Month"), sep = "-")
+sun.tidy2 <- sun.tidy %>% group_by(Year) %>% 
+  summarise(total_sunspots = sum(Sunspots))
+head(sun.tidy2)
+
+# Plot yearly time series data
+sun.tidy.ts <- ts(sun.tidy2$total_sunspots, start = c(1749,1), deltat = 1)
+plot(sun.tidy.ts, xlab = "Year", ylab = "Sunspots", main = "Sunspots per Year")
+
+# Apply first order difference 
+sun.tidy.diff <- c(NA, diff(sun.tidy.ts))
+sun.tidy.diff <- ts(sun.tidy.diff, start = c(1749,1), deltat = 1)
+plot(sun.tidy.diff, xlab = "Year", ylab = "First Order Differenced Series")
+
+# Apply second order difference to remove seasonality (11 year solar cycle)
+sun.tidy.diff2 <- c(NA, diff(sun.tidy.diff, lag = 11))
+sun.tidy.diff2 <- ts(sun.tidy.diff2, start = c(1749,1), deltat = 1)
+plot(sun.tidy.diff2, xlab = "Year", ylab = "First Order Differenced Series")
+
+# Plot ACF and PACF
+par(mfrow = c(1, 2))
+acf(sun.tidy.diff2, lag.max = 50, na.action = na.pass,
+    main = "ACF for Differenced Series")
+pacf(sun.tidy.diff2, lag.max = 50, na.action = na.pass, 
+     main = "PACF for Differenced Series")
+
+# ACF and PACF tail of suggesting an ARIMA model may be a good fit for our time series
+n <- length(sun.tidy.ts)
+fit1 <- arima(sun.tidy.ts, order = c(8,1,7), seasonal = list(order = c(1,1,2), period = 1))
+fit1
+
+# Identify model fit using residuals
+par(mfrow = c(1,2))
+res <- fit1$residuals
+acf(res, lag.max = 50)
+pacf(res, lag.max = 50)
+tsdiag(fit1)
+
+# Check the normality assumption
+qqnorm(res)
+qqline(res)
+
+# Predict the number of sunspots for each year during the next solar cycle 
+pred <- predict(fit1, n.ahead = 11)
+plot(sun.tidy.ts, xlim = c(1749, 2010), ylim = c(0, 2500), main = "Forecast of Sunspots", ylab = "Number of Sunspots")
+
+lines(pred$pred, col = "red")
+lines(pred$pred - 2 * pred$se, col = "blue")
+lines(pred$pred + 2 * pred$se, col = "blue")
+```
+
