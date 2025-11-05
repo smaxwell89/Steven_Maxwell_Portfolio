@@ -23,7 +23,8 @@ def load_shap_results():
     base_dir = os.path.dirname(os.path.abspath(__file__))
     output_dir = os.path.join(base_dir, "outputs", "shap_results")
 
-    st.write(f"📁 Looking for files in: {output_dir}")
+    # For debugging...
+    # st.write(f"Looking for files in: {output_dir}")
 
     model_path = os.path.join(output_dir, "xgb_model.pkl")
     shap_path = os.path.join(output_dir, "shap_values.pkl")
