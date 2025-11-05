@@ -19,10 +19,27 @@ This dashboard displays **SHAP-based feature importance** results from the Home 
 # --- Load Data ---
 @st.cache_resource
 def load_shap_results():
-    output_dir = "Steven_Maxwell_Portfolio/projects/model_validation_practice/model_validation_project/outputs/shap_results"
-    model = joblib.load(os.path.join(output_dir, "xgb_model.pkl"))
-    shap_values = joblib.load(os.path.join(output_dir, "shap_values.pkl"))
-    X_test = joblib.load(os.path.join(output_dir, "X_test.pkl"))
+    # Automatically find the "outputs/shap_results" directory relative to this script
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    output_dir = os.path.join(base_dir, "outputs", "shap_results")
+
+    st.write(f"📁 Looking for files in: {output_dir}")
+
+    model_path = os.path.join(output_dir, "xgb_model.pkl")
+    shap_path = os.path.join(output_dir, "shap_values.pkl")
+    xtest_path = os.path.join(output_dir, "X_test.pkl")
+
+    # Add existence checks for debugging
+    for f in [model_path, shap_path, xtest_path]:
+        if not os.path.exists(f):
+            st.error(f"File not found: {f}")
+        else:
+            st.success(f"Found file: {os.path.basename(f)}")
+
+    model = joblib.load(model_path)
+    shap_values = joblib.load(shap_path)
+    X_test = joblib.load(xtest_path)
+
     return model, shap_values, X_test
 
 try:
